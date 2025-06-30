@@ -1,0 +1,36 @@
+# Byte-compiled / cache
+__pycache__/
+*.py[cod]
+*.so
+
+# Logs & temp files
+*.log
+*.sqlite3
+*.db
+*.tmp
+*.bak
+*.swp
+
+# Model weights / checkpoints
+*.pt
+*.pth
+*.h5
+
+# Environment files
+.env
+.venv/
+venv/
+
+# Jupyter checkpoints
+.ipynb_checkpoints
+
+# Flask and build artifacts
+instance/
+backend/logs.json
+backend/temp_*.jpg
+
+# VS Code & system
+.vscode/
+.DS_Store
+Thumbs.db
+
