@@ -1,4 +1,22 @@
-transformers
-whisper
-gtts
-openvino
+# 🔊 Audio Handling
+sounddevice==0.4.6              # Record audio from microphone
+scipy==1.13.0                   # Save recorded audio as WAV
+pydub==0.25.1                   # Audio playback and manipulation
+ffmpeg-python==0.2.0            # Required by pydub for audio conversion
+gtts==2.5.1                     # Google TTS for speaking reply
+
+# 🎙️ Transcription (Whisper)
+openai-whisper==20231117       # Whisper for speech-to-text
+torch==2.2.1                    # Required by Whisper
+numpy==1.26.4                   # Audio processing + Whisper
+
+# 🔐 API Key Management
+python-dotenv==1.0.1            # Load API keys securely from .env
+
+# 🤖 Groq API Client
+groq==0.5.0                     # Official Groq Python SDK
+
+ 
+
+
+
