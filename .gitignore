@@ -1,0 +1,34 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+
+# Environment variables
+.env
+
+# Audio files
+*.wav
+*.mp3
+
+# Temporary or processed files
+transcribed.txt
+temp_audio/
+reply.mp3
+question_fixed.wav
+question.wav
+
+# Log files
+*.log
+
+# Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# VS Code settings (if using)
+.vscode/
+
+# OS-specific files
+.DS_Store
+Thumbs.db
