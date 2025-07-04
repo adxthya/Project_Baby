@@ -2,3 +2,8 @@ flask
 fastapi
 uvicorn
 tinydb
+
+Flask
+requests
+python-dotenv
+
