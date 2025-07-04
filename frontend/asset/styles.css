@@ -1,0 +1,57 @@
+/* styles.css */
+.stApp {
+ background: #bf8ae6;
+background: linear-gradient(90deg,rgba(191, 138, 230, 1) 0%, rgba(250, 132, 234, 1) 50%, rgba(250, 67, 168, 1) 100%);
+  font-family: 'Segoe UI', sans-serif;
+    display: flex;
+  align-items: center;
+  justify-content: center;
+    height: 100vh;
+  animation: fadeOut 1s ease-in-out forwards;
+  animation-delay: 3s; /* Start fade out after 3s */
+
+}
+
+h1, h2, h3 {
+  color: #ffffff;
+}
+.title-container {
+  text-align: center;
+}
+
+.line1 {
+  font-size: 5.5em;
+  font-weight: bold;
+  color: #063d7c;
+  margin-bottom: 0.2em;
+  animation: slideIn 1.2s ease-in-out;
+}
+
+.line2 {
+  font-size: 4.5em;
+  color: #063d7c;
+  animation: fadeIn 2s ease-in;
+}
+
+
+/* Animations */
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/*@keyframes fadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}*/
