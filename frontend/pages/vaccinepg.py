@@ -1,3 +1,4 @@
+import requests
 import streamlit as st
 from datetime import datetime
 
@@ -17,38 +18,57 @@ with st.form("baby_info_form"):
     dob = st.date_input("Date of Birth")
     submitted = st.form_submit_button("Submit")
 
-# Dummy vaccine schedule
+# If form submitted
 if submitted:
     st.success(f"Vaccine schedule for {baby_name} (DOB: {dob})")
 
-    st.subheader("💉 Vaccine Schedule")
+    # 1. Register Baby
+    register_url = "http://127.0.0.1:5000/register-baby"
+    register_res = requests.post(register_url, json={
+        "name": baby_name,
+        "dob": dob.strftime("%Y-%m-%d")
+    })
 
-    # Example vaccine data
-    vaccine_data = [
-        {"Vaccine": "BCG", "Date": "2025-07-01", "Status": "✅"},
-        {"Vaccine": "Hepatitis B (1st Dose)", "Date": "2025-07-15", "Status": "🕒"},
-        {"Vaccine": "OPV (Oral Polio)", "Date": "2025-08-01", "Status": "🕒"},
-    ]
+    if register_res.status_code == 200:
+        st.success("✅ Baby profile registered successfully.")
 
-    # Display table
-    st.table(vaccine_data)
+        # 2. Get Schedule
+        schedule_url = "http://127.0.0.1:5000/schedule"
+        schedule_res = requests.get(schedule_url)
+
+        if schedule_res.status_code == 200:
+            schedule = schedule_res.json()["schedule"]
+
+            # ✅ Separate completed and upcoming vaccines
+            completed = [item for item in schedule if item["status"] == "✅"]
+            upcoming = [item for item in schedule if item["status"] == "🕒"]
+
+            # 💉 Vaccine Schedule Display
+            st.subheader("💉 Vaccine Schedule")
+
+            if completed:
+                st.subheader("✅ Completed Vaccines")
+                st.table([
+                    {"Vaccine": item["vaccine"], "Date": item["due_date"], "Status": item["status"]}
+                    for item in completed
+                ])
+
+            if upcoming:
+                st.subheader("🕒 Upcoming Vaccines")
+                st.table([
+                    {"Vaccine": item["vaccine"], "Date": item["due_date"], "Status": item["status"]}
+                    for item in upcoming
+                ])
+        else:
+            st.error("❌ Could not retrieve schedule.")
+    else:
+        st.error("❌ Failed to register baby.")
 
     # Reminder toggle
     st.subheader(" Set Reminder")
     reminder = st.toggle("Enable calendar reminder notifications")
-
     if reminder:
         st.info(" Calendar integration will notify you before the vaccine date.")
-
-    # Upload vaccine card
-    st.subheader(" Upload Vaccine Card")
-    uploaded_image = st.file_uploader("Upload vaccine card image", type=["png", "jpg", "jpeg"])
-    if uploaded_image:
-        st.image(uploaded_image, caption="Uploaded Vaccine Card", use_column_width=True)
-
-    # Export to PDF (placeholder)
-    if st.button(" Export Schedule to PDF"):
-        st.info("Export feature coming soon!")
 
 # Fixed Back Button
 st.markdown("""
@@ -61,7 +81,7 @@ st.markdown("""
     }
     </style>
     <div class="bottom-left">
-        <form action="pages/navigator.py">
+        <form action="pages/navigatorpg.py">
             <button style="padding:10px; font-size:16px;">⬅ Back</button>
         </form>
     </div>

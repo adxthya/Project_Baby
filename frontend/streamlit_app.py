@@ -9,7 +9,6 @@ with open("asset/styles.css") as f:
     st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
 
-
 # Centered, split title
 st.markdown("""
     <div class="title-container">
@@ -19,6 +18,6 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 time.sleep(3.5)
-st.switch_page("pages/navigator.py")
+st.switch_page("pages/navigatorpg.py")
 
 
