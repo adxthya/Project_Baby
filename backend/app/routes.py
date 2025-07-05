@@ -33,7 +33,10 @@ def register_baby():
 def schedule():
     profile = load_baby_profile()
     if not profile:
+        print("❌ No profile found in backend.")
         return jsonify({"error": "No baby registered."}), 404
+
+    print(f"✅ Found profile: {profile}")
     schedule = generate_schedule(profile["dob"])
     return jsonify({
         "baby_name": profile["name"],

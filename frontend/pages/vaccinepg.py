@@ -18,7 +18,7 @@ with st.form("baby_info_form"):
     dob = st.date_input("Date of Birth")
     submitted = st.form_submit_button("Submit")
 
-# Dummy vaccine schedule
+# If form submitted
 if submitted:
     st.success(f"Vaccine schedule for {baby_name} (DOB: {dob})")
 
@@ -39,26 +39,36 @@ if submitted:
         if schedule_res.status_code == 200:
             schedule = schedule_res.json()["schedule"]
 
-            # Display Vaccine Schedule
+            # ✅ Separate completed and upcoming vaccines
+            completed = [item for item in schedule if item["status"] == "✅"]
+            upcoming = [item for item in schedule if item["status"] == "🕒"]
+
+            # 💉 Vaccine Schedule Display
             st.subheader("💉 Vaccine Schedule")
-            st.table([
-                {"Vaccine": item["vaccine"], "Date": item["due_date"], "Status": "🕒"}
-                for item in schedule
-            ])
+
+            if completed:
+                st.subheader("✅ Completed Vaccines")
+                st.table([
+                    {"Vaccine": item["vaccine"], "Date": item["due_date"], "Status": item["status"]}
+                    for item in completed
+                ])
+
+            if upcoming:
+                st.subheader("🕒 Upcoming Vaccines")
+                st.table([
+                    {"Vaccine": item["vaccine"], "Date": item["due_date"], "Status": item["status"]}
+                    for item in upcoming
+                ])
         else:
             st.error("❌ Could not retrieve schedule.")
     else:
         st.error("❌ Failed to register baby.")
 
-
     # Reminder toggle
     st.subheader(" Set Reminder")
     reminder = st.toggle("Enable calendar reminder notifications")
-
     if reminder:
         st.info(" Calendar integration will notify you before the vaccine date.")
-
-
 
 # Fixed Back Button
 st.markdown("""

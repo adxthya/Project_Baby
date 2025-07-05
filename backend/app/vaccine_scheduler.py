@@ -1,21 +1,23 @@
-# app/vaccine_scheduler.py
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta  # ✅ Include timedelta
 
-VACCINES = [
-    {"name": "BCG", "weeks": 0},
-    {"name": "Hepatitis B", "weeks": 0},
-    {"name": "DPT-1", "weeks": 6},
-    {"name": "DPT-2", "weeks": 10},
-    {"name": "MMR", "weeks": 36}
-]
+def generate_schedule(dob):
+    dob = datetime.strptime(dob, "%Y-%m-%d")
+    schedule = [
+        ("BCG", 0),
+        ("Hepatitis B", 0),
+        ("DPT-1", 42),
+        ("DPT-2", 70),
+        ("MMR", 252)
+    ]
 
-def generate_schedule(dob_str):
-    dob = datetime.strptime(dob_str, "%Y-%m-%d")
-    schedule = []
-    for vac in VACCINES:
-        due = dob + timedelta(weeks=vac["weeks"])
-        schedule.append({
-            "vaccine": vac["name"],
-            "due_date": due.strftime("%Y-%m-%d")
+    result = []
+    today = datetime.today()
+    for vaccine, days_after in schedule:
+        due_date = dob + timedelta(days=days_after)  # ✅ Requires timedelta
+        status = "✅" if due_date < today else "🕒"
+        result.append({
+            "vaccine": vaccine,
+            "due_date": due_date.strftime("%Y-%m-%d"),
+            "status": status
         })
-    return schedule
+    return result

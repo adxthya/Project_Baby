@@ -9,7 +9,6 @@ with open("asset/styles.css") as f:
     st.markdown(f"<style>{f.read()}</style>", unsafe_allow_html=True)
 
 
-
 # Centered, split title
 st.markdown("""
     <div class="title-container">
