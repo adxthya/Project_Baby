@@ -11,6 +11,9 @@ background: linear-gradient(90deg,rgba(191, 138, 230, 1) 0%, rgba(250, 132, 234,
   animation-delay: 3s; /* Start fade out after 3s */
 
 }
+h1{
+  text-align: center;
+}
 
 h1, h2, h3 {
   color: #ffffff;
@@ -55,3 +58,37 @@ h1, h2, h3 {
   from { opacity: 1; }
   to { opacity: 0; }
 }*/
+.stButton button span {
+  color: white !important;
+  font-weight: bold !important;
+}
+.stApp,.stTextArea,.stMarkdown{
+  color: black !important;
+} 
+
+/* 
+[data-testid="stMarkdownContainer"] {
+  color: black !important;
+}  */
+
+/* Target ONLY st.button() elements text color */
+.stButton {
+    color: white !important;
+}
+
+/* Explicitly keep other buttons their original colors */
+/* .st-cc button,
+.st-cb button,
+.st-cd button,
+.st-br button,
+.st-bs button,
+div.stButton > button:not(.stButton > button) {
+    /* These will maintain their existing colors */
+    /* color: inherit !important;
+} */ */
+/* Add this to your existing CSS
+[data-testid="stVerticalBlock"] > div:has(> .stButton) button {
+    color: white !important;
+} */
+
+/* Target buttons inside Streamlit's main content area */
