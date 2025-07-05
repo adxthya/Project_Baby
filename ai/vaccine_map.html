@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Vaccination Centers Near You</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Leaflet CSS -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+  />
+  <!-- Routing Machine CSS -->
+  <link
+    rel="stylesheet"
+    href="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.css"
+  />
+
+  <style>
+    #map {
+      height: 90vh;
+      width: 100%;
+    }
+    body {
+      font-family: Arial, sans-serif;
+      padding: 10px;
+    }
+  </style>
+</head>
+<body>
+
+<h2>Nearby Vaccination Centers</h2>
+<div id="map"></div>
+
+<!-- Leaflet JS -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<!-- Routing Machine JS -->
+<script src="https://unpkg.com/leaflet-routing-machine@latest/dist/leaflet-routing-machine.js"></script>
+
+<script>
+  function haversine(lat1, lon1, lat2, lon2) {
+    const R = 6371;
+    const toRad = x => x * Math.PI / 180;
+    const dLat = toRad(lat2 - lat1);
+    const dLon = toRad(lon2 - lon1);
+    const a = Math.sin(dLat / 2) ** 2 +
+              Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
+              Math.sin(dLon / 2) ** 2;
+    const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    return R * c;
+  }
+
+  const searchNearbyCenters = async (lat, lon) => {
+    const url = `https://nominatim.openstreetmap.org/search?format=json&q=hospital%20near%20${lat},${lon}&limit=5`;
+
+    const response = await fetch(url, {
+      headers: {
+        'User-Agent': 'VaccinationLocator/1.0'
+      }
+    });
+
+    const data = await response.json();
+
+    return data.map(item => ({
+      name: item.display_name,
+      lat: parseFloat(item.lat),
+      lon: parseFloat(item.lon)
+    }));
+  };
+
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(async pos => {
+      const userLat = pos.coords.latitude;
+      const userLon = pos.coords.longitude;
+
+      const map = L.map('map').setView([userLat, userLon], 13);
+
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 18,
+        attribution: '&copy; OpenStreetMap contributors'
+      }).addTo(map);
+
+      L.marker([userLat, userLon])
+        .addTo(map)
+        .bindPopup("📍 You are here")
+        .openPopup();
+
+      const centers = await searchNearbyCenters(userLat, userLon);
+
+      // Sort by distance
+      centers.forEach(c => {
+        c.distance = haversine(userLat, userLon, c.lat, c.lon);
+      });
+      centers.sort((a, b) => a.distance - b.distance);
+
+      centers.forEach(center => {
+        L.marker([center.lat, center.lon])
+          .addTo(map)
+          .bindPopup(`<strong>${center.name}</strong><br>Distance: ${center.distance.toFixed(2)} km`);
+      });
+
+      // ➕ Draw route to nearest
+      if (centers.length > 0) {
+        const nearest = centers[0];
+
+        L.Routing.control({
+          waypoints: [
+            L.latLng(userLat, userLon),
+            L.latLng(nearest.lat, nearest.lon)
+          ],
+          routeWhileDragging: false,
+          show: false
+        }).addTo(map);
+      }
+
+    }, () => {
+      alert("⚠️ Geolocation permission denied.");
+    });
+  } else {
+    alert("❌ Geolocation not supported by this browser.");
+  }
+</script>
+
+</body>
+</html>
