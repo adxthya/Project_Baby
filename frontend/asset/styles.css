@@ -1,7 +1,7 @@
 /* styles.css */
 .stApp {
- background: #c68fc9;
-background: linear-gradient(90deg,rgba(198, 143, 201, 1) 14%, rgba(199, 87, 199, 1) 56%, rgba(237, 83, 157, 1) 99%);
+background: #73ecff;
+background: linear-gradient(90deg, rgba(115, 236, 255, 1) 10%, rgba(71, 188, 255, 1) 46%, rgba(71, 188, 255, 1) 68%, rgba(71, 194, 255, 1) 98%);
   font-family: 'Segoe UI', sans-serif;
     display: flex;
   align-items: center;
