@@ -94,7 +94,7 @@ streamlit run streamlit_app.py
 - [ ] Enable voice transcription with Whisper
 - [ ] Add baby image health classification
 - [ ] Save full vaccine status per child in DB
-- [ ] Deploy with Docker / Render / Heroku
+
 
 ---
 
