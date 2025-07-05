@@ -75,20 +75,3 @@ h1, h2, h3 {
 .stButton {
     color: white !important;
 }
-
-/* Explicitly keep other buttons their original colors */
-/* .st-cc button,
-.st-cb button,
-.st-cd button,
-.st-br button,
-.st-bs button,
-div.stButton > button:not(.stButton > button) {
-    /* These will maintain their existing colors */
-    /* color: inherit !important;
-} */ */
-/* Add this to your existing CSS
-[data-testid="stVerticalBlock"] > div:has(> .stButton) button {
-    color: white !important;
-} */
-
-/* Target buttons inside Streamlit's main content area */

@@ -5,6 +5,9 @@ __pycache__/
 
 # Virtual environment
 venv/
+env/
+.venv/
+ENV/
 
 # Environment variables
 .env
@@ -19,6 +22,8 @@ temp_audio/
 reply.mp3
 question_fixed.wav
 question.wav
+temp_*.*
+*.tmp
 
 # Log files
 *.log
@@ -26,9 +31,42 @@ question.wav
 # Jupyter Notebook checkpoints
 .ipynb_checkpoints/
 
-# VS Code settings (if using)
+# VS Code settings
 .vscode/
 
 # OS-specific files
 .DS_Store
 Thumbs.db
+
+# Streamlit specific
+.streamlit/config.toml
+.streamlit/credentials.toml
+.cache/
+
+# Uploaded/Generated files
+uploads/
+*.png
+*.jpg
+*.jpeg
+*.pdf
+
+# Python artifacts
+*.db
+*.sqlite3
+*.pkl
+*.joblib
+*.h5
+*.pt
+*.onnx
+
+# PyInstaller
+*.spec
+build/
+dist/
+
+# JetBrains IDEs
+.idea/
+
+# Node modules (if any future JS use)
+node_modules/
+
