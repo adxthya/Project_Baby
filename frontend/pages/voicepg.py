@@ -48,6 +48,6 @@ container = st.container()
 with container:
     container.markdown('<div class="bottom-left">', unsafe_allow_html=True)
     if st.button(" Back"):
-        st.switch_page("pages/navigator.py")  # ✅ Make sure this matches the actual filename
+        st.switch_page("pages/navigatorpg.py")  # ✅ Make sure this matches the actual filename
     container.markdown('</div>', unsafe_allow_html=True)
 
