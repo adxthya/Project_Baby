@@ -39,3 +39,11 @@ Pillow==10.3.0
 
 # Dev tools
 gunicorn==21.2.0 
+
+#Frontend
+
+streamlit>=1.30.0
+pillow>=10.0.0
+pydub>=0.25.1
+streamlit_webrtc>=0.45.0
+fpdf>=1.7.2
