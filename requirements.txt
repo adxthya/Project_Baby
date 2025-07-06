@@ -15,3 +15,27 @@ python-dotenv==1.0.1            # Load API keys securely from .env
 
 # 🤖 Groq API Client
 groq==0.5.0                     # Official Groq Python SDK
+
+#Backend
+flask
+fastapi
+uvicorn
+tinydb
+
+Flask
+requests
+python-dotenv
+
+# Backend
+Flask==2.3.3
+python-dotenv==1.0.1
+requests==2.31.0
+
+# For scheduling and date handling
+APScheduler==3.10.4
+
+#Image and file handling
+Pillow==10.3.0
+
+# Dev tools
+gunicorn==21.2.0 
