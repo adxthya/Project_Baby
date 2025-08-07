@@ -16,7 +16,7 @@ with col1:
 
 with col2:
     if st.button(" Q & A", use_container_width=True):
-        st.switch_page("pages/ques&anspg.py")
+        st.switch_page("pages/ques&ans.py")
 
 # ✅ DIRECT LINK TO HTML MAP (Flask-hosted)
 st.markdown("""
@@ -29,7 +29,7 @@ st.markdown("""
     </style>
 
     <div class="icon-button">
-        <a href="http://localhost:5000/static/vaccine_map.html" target="_blank">
+        <a href="http://localhost:8080/static/vaccine_map.html" target="_blank">
             <img src="https://cdn3.iconfinder.com/data/icons/glypho-free/64/map-pin-marker-circle-128.png" width="100" />
         </a>
     </div>
